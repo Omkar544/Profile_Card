@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card-main">
+            <div class="card-head">
+                <div class="logo">
+                    <img src="logo.png" alt="">
+                </div>
+                <div class="name">
+                    Omkar Gore
+                </div>
+                <div class="passion">
+                    I am a &nbsp;<span id="scroll-text">
+                        <!--Scroll Text Animation-->
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="wrapper">
+                    <div class="card">
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                        <div class="text">HTML</div>
+                    </div>
+                    <div class="card">
+                        <div class="circle css">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                        <div class="text"> CSS</div>
+                    </div>
+                    <div class="card js">
+                        <div class="circle">
+                            <div class="bar"></div>
+                            <div class="box"><span></span></div>
+                        </div>
+                        <div class="text">JavaScript</div>
+                    </div>
+                </div>
+                <div class="socials">
+                    <a href="#"> <i class="fa-brands fa-telegram" style="--clr:#6a9ceb;"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter" style="--clr:#00a0fe;"></i></a>
+                    <a href="#"> <i class="fa-brands fa-instagram" style="--clr:#ff2972;"></i></a>
+                    <a href="#"> <i class="fa-brands fa-facebook" style="--clr:#299eff  ;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let passion = ['Web Designer', 'Web Developer', 'App Developer', 'Frontend Developer'];
+    let clr = ['#ff2972', '#04fc43', '#c12adf', '#ffb129'];
+    let pLen = passion.length - 1;
+    let scrollText = document.getElementById("scroll-text");
+    scrollText.innerHTML = passion[0];
+    let i = 0;
+    setInterval(() => {
+        scrollText.style.opacity = "0";
+        scrollText.style.transform = "translateY(10px)";
+        setTimeout(() => {
+            pLen == i ? i = 0 : i++;
+            scrollText.innerHTML = passion[i];
+            console.log("i = ", i);
+            console.log("plenght = ", pLen);
+            scrollText.style.transform = "translateY(-10px)";
+            scrollText.style.color = clr[i];
+
+            setTimeout(() => {
+                scrollText.style.opacity = "1";
+                scrollText.style.transform = "translateY(0px)";
+            }, 200);
+
+        }, 300);
+    }, 3000);
+    let options = {
+        startAngle: -1.55,
+        size: 70,
+        value: 0.85,
+        fill: { gradient: ['#a445b2', '#fa4299'] }
+    }
+    $(".circle .bar").circleProgress(options).on('circle-animation-progress',
+        function (event, progress, stepValue) {
+            $(this).parent().find("span").text(String(stepValue.toFixed(2).substr(2)) + "%");
+        });
+    $(".js .bar").circleProgress({
+        value: 0.70
+    });
+    $(".css .bar").circleProgress({
+        value: 0.90
+    });
+</script>
+
+</html>
